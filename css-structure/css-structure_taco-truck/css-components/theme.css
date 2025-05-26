@@ -1,0 +1,31 @@
+:root {
+  --body-bg: #fddcd2;
+
+  --header-bg: #ff4a11;
+  --header-text: #3f0097;
+
+  --main-bg: ##fddcd2;
+  --main-text: #ff4a11;
+  --main-title-bg: #3f0097;
+
+  --card-bg: #8336ff7b;
+  --card-text: #201e1d;
+}
+
+/* -------------------------------------------------------- */
+/* Global Styles */
+/* -------------------------------------------------------- */
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--body-bg);
+}

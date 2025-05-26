@@ -21,8 +21,11 @@ body {
 .header {
   background: #370182;
   color: #ffffff;
-  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.34) 0 3px 8px;
   padding: 10px 30px;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .header__subheading {

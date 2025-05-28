@@ -20,3 +20,13 @@ console.clear();
 // --v-- write your code here --v--
 
 // --^-- write your code here --^--
+const title = "Toscana";
+const text = "Beautiful morning waking up in Toscana";
+let likes = 1450;
+const user = "nastiafierce";
+const isReported = false;
+
+console.log("\n", title, "\n", text, "\n", likes, "\n", user, "\n", isReported);
+
+likes++;
+console.log("\n", title, "\n", text, "\n", likes, "\n", user, "\n", isReported);

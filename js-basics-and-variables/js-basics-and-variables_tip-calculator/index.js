@@ -1,5 +1,3 @@
-console.clear();
-
 /*
 Create a program that calculates the total cost of a meal, including tip, 
 based on the cost of the meal and the percentage of the tip.
@@ -14,3 +12,9 @@ based on the cost of the meal and the percentage of the tip.
 
 4. Log a message to the console that includes the meal cost, tip amount, and total cost.
 */
+
+const mealCost = 10;
+const tipPerc = 0.15;
+const tipAmount = mealCost * tipPerc;
+const totalCost = mealCost + tipAmount;
+console.log("\n", mealCost, "\n", tipAmount, "\n", totalCost);

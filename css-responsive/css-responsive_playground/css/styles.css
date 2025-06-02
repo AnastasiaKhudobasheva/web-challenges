@@ -61,9 +61,8 @@ h1 {
 
 .box--one {
   background-color: lightblue;
-
-  width: 100px;
-  height: 100px;
+  width: 30%;
+  height: 30%;
 }
 
 .box--two {

@@ -6,29 +6,52 @@ import { employees } from "../utils/db.js";
 // Check the browser preview and conduct some tests to ensure it works correctly.
 
 function findByLastName(employees, lastName) {
-  return null;
+  const employee = employees.find((employee) => {
+    return employee.lastName === lastName;
+  });
+  return employee;
+}
 
-  // Exercise 2:
-  // The same as above, but now you are searching by the 'id'.
-}
+console.log(findByLastName(employees, "Cirillo"));
+
+// Exercise 2:
+// The same as above, but now you are searching by the 'id'.
+
 function findById(employees, id) {
-  return null;
+  const employee = employees.find((employee) => {
+    return employee.id === id;
+  });
+  return employee;
 }
+
+console.log(findById(employees, "0.7269619770844851"));
 
 // Exercise 3:
 // This time you want to find an employee who lives in a city that includes a specific substring.
 
 function findByCitySubString(employees, string) {
-  return null;
+  const employee = employees.find((employee) => {
+    return employee.city.includes(string);
+  });
+
+  return employee;
 }
+
+console.log(findByCitySubString(employees, "Lamm"));
 
 // Bonus:
 // You want to find the first employee whose profession includes a specific substring
 // AND who is older than a specific age
 
 function findByProfessionSubStringAndAge(employees, string, age) {
-  return null;
+  const employee = employees.find((employee) => {
+    return employee.profession.includes(string) && employee.age > age;
+  });
+
+  return employee;
 }
+
+console.log(findByProfessionSubStringAndAge(employees, "Dir", 20));
 
 // ------------------------------------------------------------------------------
 // ----- The following code is used for the preview. Don't touch it please. -----
@@ -57,6 +80,10 @@ form2.addEventListener("submit", (event) => {
   event.preventDefault();
   exercise2.innerHTML = "";
   const result = findById(employees, event.target.exercise2.value);
+  console.log(
+    "event.target.exercise2.value",
+    typeof event.target.exercise2.value
+  );
   if (result) {
     exercise2.append(createCard(result));
   } else {

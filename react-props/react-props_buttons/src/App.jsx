@@ -1,3 +1,30 @@
+import Button from "./component/Button.jsx";
+
 export default function App() {
-  return <h1>Replace me with your component!</h1>;
+  function handleClick() {
+    alert(`You clicked me`);
+  }
+
+  return (
+    <>
+      <Button
+        isColor="green"
+        text="YES"
+        isBackground="pink"
+        onHandleClick={handleClick}
+      />
+      <Button
+        isColor="green"
+        text="NO"
+        isBackground="pink"
+        onHandleClick={handleClick}
+      />
+      <Button
+        isColor="red"
+        isDisabled
+        text="DO NOT CLICK"
+        isBackground="yellow"
+      />
+    </>
+  );
 }

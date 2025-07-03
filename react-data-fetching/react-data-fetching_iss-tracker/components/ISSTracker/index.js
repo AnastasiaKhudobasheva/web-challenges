@@ -1,10 +1,12 @@
 // import { useEffect, useState } from "react";
-import { useState } from "react";
+
 import Controls from "../Controls/index";
 import Map from "../Map/index";
 import useSWR from "swr";
 
 const URL = "https://api.wheretheiss.at/v1/satellites/25544";
+
+// fetcher function (used by SWR)
 
 const fetcher = (url) =>
   fetch(url).then((res) => {
@@ -40,16 +42,17 @@ export default function ISSTracker() {
   //   };
   // }, []);
 
-  const [refreshIndex, setRefreshIndex] = useState(0);
+  // SWR handles fetching, caching, revalidating
 
-  // Include refreshIndex in key so when it changes, SWR refetches
-  const { data, error, isLoading } = useSWR(
-    [URL, refreshIndex],
-    () => fetcher(URL),
-    {
-      refreshInterval: 5000,
-    }
-  );
+  const { data, isLoading, error, mutate } = useSWR(URL, fetcher, {
+    refreshInterval: 5000,
+  });
+  // returns an object that includes:
+  // data: The actual result (with latitude and longitude)
+  // isLoading: Whether it's still loading
+  // error: If anything went wrong
+  // mutate: special function that says: "re-fetch this now"
+  // auto-fetch every 5 seconds
 
   if (error) return <div>Error loading ISS data.</div>;
   if (isLoading) return <div>Loading ISS data...</div>;
@@ -62,7 +65,7 @@ export default function ISSTracker() {
       <Controls
         latitude={latitude}
         longitude={longitude}
-        onRefresh={() => setRefreshIndex((prev) => prev + 1)} // increments to trigger re-fetch
+        onRefresh={() => mutate()} // clean way to manually refresh
       />
     </main>
   );

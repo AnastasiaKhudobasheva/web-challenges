@@ -2,24 +2,62 @@ import useSWR from "swr";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import StyledLink from "@/components/Link";
+import ProductForm from "@/components/ProductForm";
+import { useState } from "react";
 
 export default function Product() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, isLoading } = useSWR(`/api/products/${id}`);
+  const { data, isLoading } = useSWR(id ? `/api/products/${id}` : null);
+
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  async function handleEditProduct(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const productData = Object.fromEntries(formData);
+    productData.price = Number(productData.price);
+
+    const response = await fetch(`/api/products/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productData),
+    });
+
+    if (response.ok) {
+      setIsEditMode(false);
+      // Optional: revalidate data manually if needed
+      // mutate();
+    }
+  }
+
+  async function handleDeleteProduct() {
+    const response = await fetch(`/api/products/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      await response.json();
+      router.push("/");
+    } else {
+      console.error("Failed to delete product", response.status);
+    }
+  }
 
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
 
   if (!data) {
-    return;
+    return <h1>Product not found</h1>;
   }
 
   return (
     <>
-      {" "}
       <ProductCard>
         <h2>{data.name}</h2>
         <p>Description: {data.description}</p>
@@ -41,6 +79,23 @@ export default function Product() {
             </ul>
           </ReviewsSection>
         )}
+
+        <button type="button" onClick={() => setIsEditMode((prev) => !prev)}>
+          {isEditMode ? "Cancel Edit" : "Edit Fish"}
+        </button>
+
+        <button type="button" onClick={handleDeleteProduct}>
+          Delete Fish
+        </button>
+
+        {isEditMode && (
+          <ProductForm
+            onSubmit={handleEditProduct}
+            value={data}
+            heading="Edit Fish"
+          />
+        )}
+
         <StyledLink href="/">Back to all</StyledLink>
       </ProductCard>
     </>

@@ -18,29 +18,32 @@ export default function Product() {
   }
 
   return (
-    <ProductCard>
-      <h2>{data.name}</h2>
-      <p>Description: {data.description}</p>
-      <p>
-        Price: {data.price} {data.currency}
-      </p>
+    <>
+      {" "}
+      <ProductCard>
+        <h2>{data.name}</h2>
+        <p>Description: {data.description}</p>
+        <p>
+          Price: {data.price} {data.currency}
+        </p>
 
-      {/*Bonus: Show Reviews if they exist */}
-      {data.reviews?.length > 0 && (
-        <ReviewsSection>
-          <h3>Reviews</h3>
-          <ul>
-            {data.reviews.map((review) => (
-              <li key={review._id}>
-                <strong>{review.title}</strong> ({review.rating}/5)
-                <p>{review.text}</p>
-              </li>
-            ))}
-          </ul>
-        </ReviewsSection>
-      )}
-      <StyledLink href="/">Back to all</StyledLink>
-    </ProductCard>
+        {/*Bonus: Show Reviews if they exist */}
+        {data.reviews?.length > 0 && (
+          <ReviewsSection>
+            <h3>Reviews</h3>
+            <ul>
+              {data.reviews.map((review) => (
+                <li key={review._id}>
+                  <strong>{review.title}</strong> ({review.rating}/5)
+                  <p>{review.text}</p>
+                </li>
+              ))}
+            </ul>
+          </ReviewsSection>
+        )}
+        <StyledLink href="/">Back to all</StyledLink>
+      </ProductCard>
+    </>
   );
 }
 
